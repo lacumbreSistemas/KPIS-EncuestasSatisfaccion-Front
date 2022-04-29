@@ -1,0 +1,67 @@
+
+<div class="card ">
+  <button type="button" routerLink="/puntajes/{{idSucursal}}" class="btn btn-info m-3 col-3">Ver puntajes</button>
+    <h5 class="card-header text-center">Encuesta de satisfacción</h5>
+    <div class="card-body">
+        <p class="card-text">A continuación le solicitamos evalúe los atributos en los siguientes puntos.
+           <br> Ejemplo: ¿Cómo calificaría el "Tiempo de espera/Higiene/Servicio al Cliente/Precio/Variedad" de 
+            nuestro supermercado en la escala del 1 al 10
+            
+        </p>
+        <strong>1: Peor Calificación - 10: Mejor Calificación</strong>
+        <div class="d-flex justify-content-center m-1">
+          <div *ngIf="!cargando" class="spinner-border" role="status">
+            <span class="visually-hidden"></span>
+          </div>
+        </div>
+        <div *ngIf="ContadorEncuestas===10" class="alert alert-danger mt-2 text-center animate__animated animate__bounceIn" role="alert">
+          Ya se llegó al límite de encuestas por esta semana, gracias
+        </div>
+        <div class="table-responsive">
+            <table class="table ">
+                <thead class="table-dark" style="position: sticky;">
+                  <tr class="text-center">
+                    <th scope="col">#</th>
+                    <th scope="col">Pregunta</th>
+                    <th scope="col">Calificacion</th>
+                
+                  </tr>
+                </thead>
+              
+                <tbody *ngIf="cargando" >
+                  <tr *ngFor="let pregunta of preguntas;let i=index " class="text-center">
+                    <th >{{i+1}}</th>
+                    <td class="table-primary tableEncuesta" >{{pregunta.Nombre}}</td>
+                    <td  class="col-12 d-flex justify-content-center" >  
+                        <div class="col-md-6" >
+                        <select (change)="obtenerCalificaciones(pregunta.id,$event)"  id="encuestaSelect" class="form-select">
+                          <option disabled  selected>
+                              
+                            <i class="far fa-calendar-check"> Puntos</i>
+
+                          </option>
+                          <option value=1>1</option>
+                          <option value=2>2</option>
+                          <option value=3>3</option>
+                          <option value=4>4</option>
+                          <option value=5>5</option>
+                          <option value=6>6</option>
+                          <option value=7>7</option>
+                          <option value=8>8</option>
+                          <option value=9>9</option>
+                          <option value=10>10</option>
+                        </select>
+                      </div></td>
+
+                
+                  </tr>
+                </tbody>
+              </table>
+              <button [disabled]="this.Calificaciones.length<=9 || ContadorEncuestas===10" type="button" (click)="enviarCalificacion()" class="btn btn-primary m-1">Enviar encuesta</button>
+              <button *ngIf="ContadorEncuestas===10 " type="button" routerLink="/inicio" class="btn btn-success m-1">Volver a inicio</button>
+              <h5>Cantidad actual:{{ContadorEncuestas}}</h5>
+  
+            </div>
+    </div>
+  </div>
+

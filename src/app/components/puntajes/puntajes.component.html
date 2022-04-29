@@ -1,0 +1,74 @@
+
+<div class="card ">
+    <div class="row d-flex justify-content-center">
+        <div class="col-4">
+            <label for="inputEmail4" class="form-label">Desde</label>
+
+          <input type="date" #Desde class="form-control" placeholder="First name" aria-label="First name">
+        </div>
+        <div class="col-4">
+            <label for="inputEmail4" class="form-label">Hasta</label>
+          <input type="date" #Hasta class="form-control" placeholder="Last name" aria-label="Last name">
+        </div>
+
+           
+            <button type="button" (click)="ObtenerCalificaciones(Desde.value,Hasta.value)" class="btn btn-info m-3 mt-4 col-3">Ver puntajes</button>
+    
+      </div>
+
+      <h5 class="card-header text-center">Encuesta de satisfacción</h5>
+      <div class="card-body">
+          
+          
+          <div class="table-responsive">
+              <table class="table table-striped ">
+                  <thead class="table-dark" style="position: sticky;">
+                    <tr class="text-center">
+                    <th scope="col">#</th>
+                      <th scope="col">Pregunta</th>
+                      <th scope="col">Calificacion</th>
+                      <th scope="col">Fecha</th>
+                      <!-- <th scope="col">Editar puntaje</th> -->
+                  
+                    </tr>
+                  </thead>
+                
+                  <tbody  >
+                 
+                    <tr *ngFor="let calificacion of Calificaciones;let i=index " class="text-center">
+                       
+                      <th >{{i+1}}</th>    
+                      <td class=" tableEncuesta" >{{calificacion.Nombre}}</td>     
+                      <td class=" tableEncuesta" >{{calificacion.Valoracion}}</td>     
+                      <td class="tableEncuesta" >{{calificacion.Fecha |  date: 'dd/MM/yyyy'}}</td>     
+                      <!-- <td class="tableEncuesta" ><button type="button" class="btn btn-success" (click)="open(content,calificacion)" ><i class="fa fa-pen"></i></button></td>      -->
+                       
+                    </tr>
+                  </tbody>
+                </table>
+             
+    
+              </div>
+      </div><ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Editar puntuacion</h4>
+          <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="co-8">
+                    <label for="inputEmail4" class="form-label">Nombre de la pregunta</label>
+                  <input type="text" readonly [(ngModel)]="NombrePregunta" name="NombrePregunta" class="form-control" placeholder="First name" aria-label="First name">
+                </div>
+                <div class="col-4 mt-3">
+                    <label for="inputEmail4" class="form-label">Puntuación</label>
+                  <input type="text" #valoracion [(ngModel)]="Calificacion"  name="Calificacion" class="form-control" placeholder="Last name" aria-label="Last name">
+                </div>
+              </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" (click)="c('Save click');editarCalificacion(valoracion.value)">Guardar cambios</button>
+        </div>
+      </ng-template>
+    </div>
+  
