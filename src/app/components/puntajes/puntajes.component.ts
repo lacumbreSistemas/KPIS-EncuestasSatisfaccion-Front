@@ -14,6 +14,7 @@ export class PuntajesComponent implements OnInit {
   Calificaciones:any=[];
   Calificacion:any
   NombrePregunta:any
+  PorcentajeSemana:any
   idPregunta:any
   FechaDesde:any
   FechaHasta:any
@@ -37,11 +38,12 @@ export class PuntajesComponent implements OnInit {
   }
 
   editarCalificacion(calificacion:any){
-    console.log('FechaDesde',this.FechaDesde)
-    console.log('FechaHasta',this.FechaHasta)
+
     this.es.ActualizarPuntaje(this.idPregunta,calificacion).subscribe(resp=>{
       this.ObtenerCalificaciones(this.FechaDesde,this.FechaHasta);
     })
+
+
   }
 
   ObtenerCalificaciones(desde:any,hasta:any){  
@@ -50,6 +52,16 @@ export class PuntajesComponent implements OnInit {
 
     this.es.obtenerPuntajes(desde,hasta,this.idSucursal).subscribe(resp=>{
       this.Calificaciones = resp
+    })
+    this.es.ObtenerPorcentajes(desde,hasta,this.idSucursal).subscribe( (resp:any)=>{
+      if (resp[0].Global){
+
+        this.PorcentajeSemana = resp[0].Global
+      }
+      else{
+        this.PorcentajeSemana = 0
+      }
+      
     })
   }
 }

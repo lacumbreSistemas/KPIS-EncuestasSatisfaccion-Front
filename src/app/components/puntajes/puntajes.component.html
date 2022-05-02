@@ -19,8 +19,10 @@
       <h5 class="card-header text-center">Encuesta de satisfacción</h5>
       <div class="card-body">
           
-          
-          <div class="table-responsive">
+        <div *ngIf="PorcentajeSemana" class="alert alert-primary col-lg-4 col-md-6 animate__animated animate__fadeInUp" role="alert">
+          El porcentaje de la semana es: <strong>{{PorcentajeSemana}} %</strong>
+        </div>
+          <div class="table-responsive ">
               <table class="table table-striped ">
                   <thead class="table-dark" style="position: sticky;">
                     <tr class="text-center">
@@ -35,7 +37,7 @@
                 
                   <tbody  >
                  
-                    <tr *ngFor="let calificacion of Calificaciones;let i=index " class="text-center">
+                    <tr *ngFor="let calificacion of Calificaciones;let i=index " class="text-center animate__animated animate__fadeInUpBig">
                        
                       <th >{{i+1}}</th>    
                       <td class=" tableEncuesta" >{{calificacion.Nombre}}</td>     
