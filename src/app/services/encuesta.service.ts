@@ -5,8 +5,8 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class EncuestaService {
-    private AppUrl= 'http://localhost:54469/api/encuesta/';
-  // private AppUrl= 'http://10.10.1.221:8064/api/encuesta/';
+    // private AppUrl= 'http://localhost:54469/api/encuesta/';
+   private AppUrl= 'http://10.10.1.221:8064/api/encuesta/';
   constructor(private http: HttpClient) { }
   obtenerPreguntas(){
     return this.http.get(this.AppUrl+'ObtenerPreguntas');
